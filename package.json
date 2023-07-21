@@ -1,7 +1,7 @@
 {
   "name": "@lucassous-org/editorjs-ext-table",
   "description": "Table for Editor.js - Created by CodeX Team - Remastered",
-  "version": "2.2.2-9",
+  "version": "2.2.2-10",
   "license": "MIT",
   "main": "./dist/table.js",
   "scripts": {
