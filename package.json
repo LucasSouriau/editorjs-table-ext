@@ -1,7 +1,7 @@
 {
-  "name": "@editorjs-ext/table",
+  "name": "@lucassous-org/editorjs-ext-table",
   "description": "Table for Editor.js - Created by CodeX Team - Remastered",
-  "version": "2.2.2-1",
+  "version": "2.2.2-9",
   "license": "MIT",
   "main": "./dist/table.js",
   "scripts": {
@@ -9,6 +9,7 @@
     "build:dev": "webpack --mode development --watch",
     "lint": "eslint -c ./.eslintrc --ext .js --fix ."
   },
+  "private": false,
   "repository": {
     "url": "https://github.com/LucasSouriau/editorjs-table-ext",
     "type": "git"
