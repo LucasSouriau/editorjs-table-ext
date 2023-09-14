@@ -449,7 +449,6 @@ export default class Table {
             insertedRow = this.table.appendChild(rowElem);
         }
 
-        console.log(insertedRow, numberOfColumns);
         this.fillRow(insertedRow, numberOfColumns);
 
         if (this.tunes.withHeadings) {

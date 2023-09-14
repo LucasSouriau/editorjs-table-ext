@@ -112,7 +112,6 @@ export default class Toolbox {
       this.popover.close();
       this.onClose();
     } else {
-      console.log("masssss");
       this.popover.open();
       this.onOpen();
     }

@@ -95,8 +95,6 @@ export default class Table extends TableSource {
                 const {fromTopBorder, fromLeftBorder} = $.getRelativeCoordsOfTwoElems(this.table, hoveredCellElement);
                 const {width}                 = hoveredCellElement.getBoundingClientRect();
 
-                // TODO : Look for strict column (no rowspan) width, in order to set position for toolbox
-
                 if (!this.isColumnMenuShowing) {
                     this.toolboxColumn.show(() => {
                         return {
@@ -254,8 +252,6 @@ export default class Table extends TableSource {
 
     initResizableColumns(forceWidths = []) {
         const self = this;
-
-        console.log(forceWidths);
 
         const options = {
             liveDrag : true,
@@ -512,10 +508,8 @@ export default class Table extends TableSource {
 
             for (let nextColumnNumber = index + 1; nextColumnNumber <= initialNumberOfColumns; nextColumnNumber++) {
                 const nextCell = this.getCell(i, nextColumnNumber);
-                console.log({i, nextColumnNumber});
                 // If next row cell is a masterCell
                 if (nextCell.hasAttribute('colspan') || nextCell.hasAttribute('rowspan')) {
-                    console.log(nextCell);
                     // Update all linkedCells rows reference
                     this.table
                         .querySelectorAll(`.${CSS.cell}[data-master-cell="${i}_${nextColumnNumber}"]`)
@@ -567,8 +561,6 @@ export default class Table extends TableSource {
                     const cellMergedPositions = cellData.cell_merge.split('_');
                     const rowMerge            = parseInt(cellMergedPositions[0]);
                     const columnMerge         = parseInt(cellMergedPositions[1]);
-
-                    console.log(cellMergedPositions);
 
                     if (rowMerge !== index && columnMerge !== (columnIndex + 1)) {
                         return;
@@ -640,14 +632,10 @@ export default class Table extends TableSource {
             });
         }
 
-        // TODO : Make activable column sizer
-
-
         return data;
     }
 
     fill() {
-        console.log("not yet");
         const data = this.data;
 
         if (data && data.content) {
