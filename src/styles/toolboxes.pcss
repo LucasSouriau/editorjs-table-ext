@@ -4,6 +4,9 @@
   --toggler-click-zone-size: 30px;
   --toggler-dots-color: #7B7E89;
   --toggler-dots-color-hovered: #1D202B;
+  --row-controls-size: 10px;
+
+  display: none;
 
   position: absolute;
   cursor: pointer;
@@ -20,14 +23,22 @@
   }
 
   &--row {
-    left: calc(-1 * var(--popover-margin));
+    left: calc((-1 * var(--popover-margin)) - var(--row-controls-size));
     transform: translateY(calc(-1 * var(--toggler-click-zone-size) / 2));
     margin-top: -1px; /* because of top border */
     will-change: top, opacity;
   }
 
+  &--cell {
+    transform: translateY(calc(-1 * var(--toggler-click-zone-size) / 2));
+    margin-top: -1px; /* because of top border */
+    will-change: top, left, opacity;
+  }
+
   &--showed {
     opacity: 1;
+    display: block;
+    z-index: 15;
   }
 
   .tc-popover {

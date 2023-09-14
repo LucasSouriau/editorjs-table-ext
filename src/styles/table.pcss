@@ -1,193 +1,317 @@
 /* tc- project's prefix*/
+.ce-block__content,
+.ce-toolbar__content {
+    max-width: 900px;
+}
+
 .tc-wrap {
-  --color-background: #f9f9fb;
-  --color-text-secondary: #7b7e89;
-  --color-border: #e8e8eb;
-  --cell-size: 34px;
-  --toolbox-icon-size: 18px;
-  --toolbox-padding: 6px;
-  --toolbox-aiming-field-size: calc(
-    var(--toolbox-icon-size) + 2 * var(--toolbox-padding)
-  );
+    --color-background: #f9f9fb;
+    --color-text-secondary: #7b7e89;
+    --color-border: #e8e8eb;
+    --cell-selected-color: #4c7fc9;
+    --cell-selected-background: #0052cc17;
+    --header-cell-selected-background: rgba(0, 82, 204, 0.25);
+    --cell-size: 34px;
+    --row-controls-size: 10px;
+    --row-controls-selected-color: #0052cc;
+    --toolbox-icon-size: 18px;
+    --toolbox-padding: 6px;
+    --toolbox-aiming-field-size: calc(
+            var(--toolbox-icon-size) + 2 * var(--toolbox-padding)
+    );
 
-  border-left: 0px;
-  position: relative;
-  height: 100%;
-  width: 100%;
-  margin-top: var(--toolbox-icon-size);
-  box-sizing: border-box;
-  display: grid;
-  grid-template-columns: calc(100% - var(--cell-size)) var(--cell-size);
+    border-left: 0px;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    margin-top: calc(var(--toolbox-icon-size) + 5px);
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: calc(100% - var(--cell-size)) var(--cell-size);
 
-  &--readonly {
-    grid-template-columns: 100% var(--cell-size);
-  }
-
-  svg {
-    vertical-align: top;
-  }
-
-  @media print {
-    border-left: 1px solid var(--color-border);
-    grid-template-columns: 100% var(--cell-size);
-  }
-
-  .tc-row::after {
-    @media print {
-      display: none;
+    &--readonly {
+        grid-template-columns: 100% var(--cell-size);
     }
-  }
+
+    svg {
+        vertical-align: top;
+    }
+
+    @media print {
+        border-left: 1px solid var(--color-border);
+        grid-template-columns: 100% var(--cell-size);
+    }
+
+    .tc-row::after {
+        @media print {
+            display: none;
+        }
+    }
+
+    .grip-container {
+        z-index: 5;
+        top: 0;
+        position: absolute;
+
+        & > .grip-handle {
+            margin-left: -2px;
+            width: 2px;
+
+            &:hover {
+                background-color: var(--cell-selected-color);
+            }
+        }
+    }
 }
 
 .tc-table {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: grid;
-  font-size: 14px;
-  border-top: 1px solid var(--color-border);
-  line-height: 1.4;
-
-  &::after {
-    position: absolute;
-    content: "";
-    width: calc(var(--cell-size));
     height: 100%;
-    left: calc(-1 * var(--cell-size));
-    top: 0;
-  }
+    table-layout: fixed;
+    font-size: 14px;
+    line-height: 1.4;
+    grid-row: 1;
+    grid-column: 1;
+    border-spacing: 0;
+    border-collapse: collapse;
+    word-break: break-word;
 
-  &::before {
-    position: absolute;
-    content: "";
-    width: 100%;
-    height: var(--toolbox-aiming-field-size);
-    top: calc(-1 * var(--toolbox-aiming-field-size));
-    left: 0;
-  }
-
-  &--heading {
-    & .tc-row:first-child {
-      font-weight: 600;
-      border-bottom: 2px solid var(--color-border);
-
-      & [contenteditable]:empty::before {
-        content: attr(heading);
-        color: var(--color-text-secondary);
-      }
-
-      &::after {
-        bottom: -2px;
-        border-bottom: 2px solid var(--color-border);
-      }
+    &::after {
+        position: absolute;
+        content: "";
+        width: calc(var(--cell-size));
+        height: 100%;
+        left: calc(-1 * var(--cell-size));
+        top: 0;
     }
-  }
+
+    &::before {
+        position: absolute;
+        content: "";
+        width: 100%;
+        height: var(--toolbox-aiming-field-size);
+        top: calc(-1 * var(--toolbox-aiming-field-size));
+        left: 0;
+    }
+
+    &--heading {
+        &.grip-resizable > .tc-row:nth-child(2) {
+            & .tc-cell {
+                font-weight: 600;
+                background-color: rgba(0, 0, 0, 0.03);
+            }
+
+            & [contenteditable]:empty::before {
+                content: attr(heading);
+                color: var(--color-text-secondary);
+            }
+        }
+
+        &:not(.grip-resizable) > .tc-row:nth-child(1) {
+            & .tc-cell {
+                font-weight: 600;
+                background-color: rgba(0, 0, 0, 0.03);
+            }
+
+            & [contenteditable]:empty::before {
+                content: attr(heading);
+                color: var(--color-text-secondary);
+            }
+        }
+    }
 }
 
 .tc-add {
-  &-column,
-  &-row {
-    display: flex;
-    color: var(--color-text-secondary);
-  }
+    &-column,
+    &-row {
+        display: flex;
+        color: var(--color-text-secondary);
+    }
 
-  @media print {
-    display: none;
-  }
+    @media print {
+        display: none;
+    }
 }
 
 .tc-add-column {
-  padding: 4px 0;
-  justify-content: center;
-  border-top: 1px solid var(--color-border);
+    padding: 4px 0;
+    justify-content: center;
+    border-top: 1px solid var(--color-border);
+    grid-row: 1;
 
-  @media print {
-    display: none;
-  }
+    @media print {
+        display: none;
+    }
 }
 
 .tc-add-row {
-  height: var(--cell-size);
-  align-items: center;
-  padding-left: 4px;
-  position: relative;
+    height: var(--cell-size);
+    align-items: center;
+    padding-left: 4px;
+    position: relative;
 
-  &::before {
-    content: "";
-    position: absolute;
-    right: calc(-1 * var(--cell-size));
-    width: var(--cell-size);
-    height: 100%;
-  }
+    &::before {
+        content: "";
+        position: absolute;
+        right: calc(-1 * var(--cell-size));
+        width: var(--cell-size);
+        height: 100%;
+    }
 
-  @media print {
-    display: none;
-  }
+    @media print {
+        display: none;
+    }
 }
 
 .tc-add {
-  &-column,
-  &-row {
-    transition: 0s;
-    cursor: pointer;
-    will-change: background-color;
+    &-column,
+    &-row {
+        transition: 0s;
+        cursor: pointer;
+        will-change: background-color;
 
-    &:hover {
-      transition: background-color 0.1s ease;
-      background-color: var(--color-background);
+        &:hover {
+            transition: background-color 0.1s ease;
+            background-color: var(--color-background);
+        }
     }
-  }
 
-  &-row {
-    margin-top: 1px;
+    &-row {
+        margin-top: 1px;
 
-    &:hover::before {
-      transition: 0.1s;
-      background-color: var(--color-background);
+        &:hover::before {
+            transition: 0.1s;
+            background-color: var(--color-background);
+        }
     }
-  }
 }
 
-.tc-row {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(10px, 1fr));
-  position: relative;
-  border-bottom: 1px solid var(--color-border);
 
-  &::after {
-    content: "";
-    pointer-events: none;
-    position: absolute;
-    width: var(--cell-size);
-    height: 100%;
-    bottom: -1px;
-    right: calc(-1 * var(--cell-size));
-    border-bottom: 1px solid var(--color-border);
-  }
+.tc-table {
+    .tc-row {
+        grid-template-columns: repeat(auto-fit, minmax(10px, 1fr));
 
-  &--selected {
-    background: var(--color-background);
-  }
+        &--selected {
+            & > .tc-cell {
+                border: 1px double;
+                border-color: var(--cell-selected-color);
+            }
+        }
+    }
 }
 
 .tc-row--selected {
-  &::after {
-    background: var(--color-background);
-  }
+    &::after {
+        background: var(--color-background);
+    }
 }
 
 .tc-cell {
-  border-right: 1px solid var(--color-border);
-  padding: 6px 12px 6px 12px;
-  overflow: hidden;
-  outline: none;
-  line-break: normal;
+    border: 1px solid var(--color-border);
+    border-collapse: collapse;
+    padding: 6px 12px 6px 12px;
+    outline: none;
+    line-break: normal;
+    vertical-align: unset;
+    position: relative;
+    width: 60px;
+    height: 20px;
 
-  &--selected {
-    background: var(--color-background);
-  }
+    &[colspan] {
+        z-index: 10;
+    }
+
+    &[rowspan]:not([rowspan="1"]) {
+        height: 50px;
+    }
+
+    &.d-none {
+        display: none;
+    }
+
+    &--selected {
+        background: var(--color-background);
+    }
+
+    &[selected=true] {
+        border-color: var(--cell-selected-color);
+        border-style: double;
+        background-color: var(--cell-selected-background) !important;
+
+        &[heading="Heading"] {
+            background-color: var(--header-cell-selected-background) !important;
+        }
+    }
 }
 
 .tc-wrap--readonly .tc-row::after {
-  display: none;
+    display: none;
+}
+
+.tc-column-controls {
+    visibility: collapse;
+
+    & > .tc-row-control-item {
+        padding: 0;
+    }
+}
+
+.tc-wrap {
+
+    &:hover > .tc-row-controls {
+        visibility: visible;
+    }
+
+    & > .tc-row-controls {
+        display: table;
+        visibility: hidden;
+        border-spacing: 0;
+        border-collapse: collapse;
+        width: var(--row-controls-size);
+        position: absolute;
+        left: calc(var(--row-controls-size) * -1);
+        z-index: 1;
+
+        &.d-none {
+            display: none;
+        }
+
+        & > .tc-row-control-item {
+            border-collapse: collapse;
+            border-top: 1px solid var(--color-border);
+            border-bottom: 1px solid var(--color-border);
+            border-left: 1px solid var(--color-border);
+
+            &.selected {
+                border-color: var(--row-controls-selected-color);
+
+                & > td {
+                    border-top: 1px solid;
+                    border-bottom: 1px solid;
+                    border-left: 1px solid;
+                    background-color: var(--row-controls-selected-color);
+                    border-color: var(--row-controls-selected-color);
+                }
+            }
+        }
+
+        &--heading {
+            & > .tc-row-control-item {
+                &:first-child {
+                    border-bottom: 2px solid var(--color-border);
+
+                    &.selected > td {
+                        border-bottom: 2px solid var(--row-controls-selected-color);
+                    }
+                }
+
+                &:nth-child(2).selected > td {
+                    border-top: 2px solid var(--row-controls-selected-color);;
+                }
+
+                &.selected > td {
+                    border-color: var(--row-controls-selected-color);
+                }
+            }
+        }
+    }
 }

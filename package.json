@@ -37,10 +37,11 @@
     "postcss-nesting": "^7.0.0",
     "style-loader": "^0.23.1",
     "svg-inline-loader": "^0.8.0",
-    "webpack": "^4.29.5",
+    "webpack": "^5.88.2",
     "webpack-cli": "^3.2.3"
   },
   "dependencies": {
-    "@codexteam/icons": "^0.0.6"
+    "@codexteam/icons": "^0.0.6",
+    "column-resizer": "^1.4.0"
   }
 }

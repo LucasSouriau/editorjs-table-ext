@@ -19,12 +19,12 @@
     }
 
     .block {
-      width: 800px;
+      width: 900px;
       margin-top: 40px;
     }
 
     #editorjs {
-      width: 900px;
+      width: 1000px;
       min-height: 100px;
     }
   </style>
@@ -51,7 +51,8 @@
           class: Table,
           inlineToolbar: true,
           config: {
-            withHeadings: true
+            withHeadings: true,
+            columnResize: true,
           }
         }
       },
@@ -63,10 +64,46 @@
             type: "table",
             data: {
               withHeadings: true,
+              widthColumns: [
+                153.133,
+                191.867,
+                427.5,
+                84.5
+              ],
               content: [
-                ["English", "Russian", "Japanese"], 
-                ["Sweet", "Сладкий", "あまい"], 
-                ["Good morning", "Доброе утро", "おはようございます"]]
+                [
+                  "English",
+                  "Russian",
+                  "Japanese",
+                  "Test"
+                ],
+                [
+                  "Sweet",
+                  "Сладкий",
+                  "あまい",
+                  ""
+                ],
+                [
+                  "Good morning",
+                  "Доброе утро",
+                  {
+                    "cell_merge": "3_2"
+                  },
+                  ""
+                ],
+                [
+                  "",
+                  {
+                    "cell_merge": "3_2"
+                  },
+                  {
+                    "cell_merge": "3_2"
+                  },
+                  {
+                    "cell_merge": "3_4"
+                  }
+                ]
+              ]
             }
           }
         ],

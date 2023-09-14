@@ -1,4 +1,4 @@
-import Table from './table';
+import Table from './table-ext';
 import * as $ from './utils/dom';
 
 import { IconTable, IconTableWithHeadings, IconTableWithoutHeadings } from '@codexteam/icons';
@@ -58,8 +58,10 @@ export default class TableBlock {
     this.config = config;
     this.data = {
       withHeadings: this.getConfig('withHeadings', false, data),
+      widthColumns: this.getConfig('widthColumns', [], data),
       content: data && data.content ? data.content : []
     };
+
     this.table = null;
   }
 
@@ -137,6 +139,16 @@ export default class TableBlock {
       withHeadings: this.data.withHeadings,
       content: tableContent
     };
+
+    const hasColumnResize = this.config.columnResize ?? false;
+    if (hasColumnResize) {
+        const widthArr = [];
+        this.table.table.querySelectorAll(`.tc-column-controls > .tc-column-control-item`).forEach(function (item) {
+          widthArr.push(item.style.width);
+        });
+
+        result.widthColumns = widthArr;
+    }
 
     return result;
   }

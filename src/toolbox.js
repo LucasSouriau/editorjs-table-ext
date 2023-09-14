@@ -82,7 +82,7 @@ export default class Toolbox {
       innerHTML: ToolboxIcon
     });
 
-    toggler.addEventListener('click', () => {
+    toggler.addEventListener('click', (event) => {
       this.togglerClicked();
     });
 
@@ -112,6 +112,7 @@ export default class Toolbox {
       this.popover.close();
       this.onClose();
     } else {
+      console.log("masssss");
       this.popover.open();
       this.onOpen();
     }
@@ -141,7 +142,7 @@ export default class Toolbox {
    *
    * @returns {void}
    */
-  hide() {
+    hide() {
     this.popover.close();
     this.wrapper.classList.remove(Toolbox.CSS.toolboxShowed);
   }

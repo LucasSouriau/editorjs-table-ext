@@ -126,3 +126,36 @@ export function focus(element, atStart = true) {
   selection.removeAllRanges();
   selection.addRange(range);
 }
+
+/**
+ *
+ * @param {Element} element
+ * @param {string} attributeName
+ *
+ * @return {void}
+ */
+export function increaseSpanAttribute(element, attributeName){
+  if (element.hasAttribute(attributeName) === true) {
+    const value = parseInt(element.getAttribute(attributeName));
+    element.setAttribute(attributeName, `${value + 1}`);
+  }
+}
+
+/**
+ *
+ * @param {Element} element
+ * @param {string} attributeName
+ *
+ * @return {void}
+ */
+export function decreaseSpanAttribute(element, attributeName){
+  if (element.hasAttribute(attributeName) === true) {
+    const value = parseInt(element.getAttribute(attributeName));
+
+    if (value < 1) {
+      element.removeAttribute(attributeName)
+    } else {
+      element.setAttribute(attributeName, value - 1);
+    }
+  }
+}
